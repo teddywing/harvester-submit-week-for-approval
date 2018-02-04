@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>com.teddywing.harvester-submit-week-for-approval</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/usr/local/bin/python3</string>
+		<string>/absolute/path/to/harvester_submit_week_for_approval.py</string>
+		<string>--email</string>
+		<string>name@example.com</string>
+		<string>--password-command</string>
+		<string>security find-internet-password -a 'name@example.com' -s 'acme.harvestapp.com' -w</string>
+		<string>--subdomain</string>
+		<string>acme</string>
+		<string>--account-id</string>
+		<string>000000</string>
+		<string>--api-token</string>
+		<string>TOKEN</string>
+	</array>
+	<key>StandardErrorPath</key>
+	<string>/tmp/harvester_submit_week_for_approval.log</string>
+	<key>StartCalendarInterval</key>
+	<array>
+		<dict>
+			<key>Weekday</key>
+			<integer>1</integer>
+			<key>Hour</key>
+			<integer>17</integer>
+			<key>Minute</key>
+			<integer>58</integer>
+		</dict>
+		<dict>
+			<key>Weekday</key>
+			<integer>5</integer>
+			<key>Hour</key>
+			<integer>17</integer>
+			<key>Minute</key>
+			<integer>58</integer>
+		</dict>
+	</array>
+</dict>
+</plist>
