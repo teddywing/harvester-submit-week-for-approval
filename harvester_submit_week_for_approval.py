@@ -56,10 +56,15 @@ def submit_week_for_approval(driver, wait, subdomain):
             '//a[@aria-label="{}"]'.format(friday.strftime('%A, %d %B'))
         )))
 
+    approval_button = driver.find_element_by_css_selector(
+        '.approval-button .submit-link')
+
+    # Don't submit if the time sheet has already been submitted
+    if approval_button.text == 'Resubmit Week for Approval':
+        return driver
+
     # Click "Submit Week for Approval" button
-    driver.find_element_by_css_selector(
-        '.approval-button .submit-link'
-    ).click()
+    approval_button.click()
 
     # Click "Yes, Submit Timesheet" button
     wait.until(
