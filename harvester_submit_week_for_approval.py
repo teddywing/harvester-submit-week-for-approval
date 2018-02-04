@@ -21,6 +21,10 @@ def login(driver):
     ).send_keys(email)
     driver.find_element_by_name('password').send_keys(password + Keys.ENTER)
 
+    wait.until(
+        expected.visibility_of_element_located((By.ID, 'user-dropdown-toggle'))
+    )
+
     return driver
 
 if __name__ == "__main__":
@@ -35,5 +39,5 @@ if __name__ == "__main__":
 
     print(driver.page_source)
 
-    import time; time.sleep(20)
+    # import time; time.sleep(20)
     driver.quit()
