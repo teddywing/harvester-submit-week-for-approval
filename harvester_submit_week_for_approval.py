@@ -92,7 +92,4 @@ if __name__ == "__main__":
     driver = login(driver, wait)
     driver = submit_week_for_approval(driver, wait)
 
-    print(driver.page_source)
-
-    # import time; time.sleep(20)
     driver.quit()
