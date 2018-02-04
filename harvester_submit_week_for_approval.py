@@ -3,6 +3,7 @@
 import argparse
 from datetime import datetime, timedelta
 import subprocess
+import sys
 
 from selenium.webdriver import Firefox
 from selenium.webdriver.common.by import By
@@ -10,6 +11,8 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support import expected_conditions as expected
 from selenium.webdriver.support.wait import WebDriverWait
+
+import requests
 
 
 def login(driver, wait, email, password):
@@ -89,6 +92,61 @@ def get_password(command):
     return str(result.stdout, 'utf-8').rstrip()
 
 
+class WeekIsComplete(object):
+
+    def __init__(self, account_id, api_token, friday):
+        self.account_id = account_id
+        self.api_token = api_token
+        self.friday = friday
+        self._monday = None
+        self.days = {}
+
+        # Add `self.days['2018-01-31'] = 0` for all weekdays
+        for i in range(5):
+            self.days[(self.monday + timedelta(days=i)).strftime('%F')] = 0
+
+    def check(self):
+        time_entries = self._fetch_week()
+        days = self.days.keys()
+
+        for entry in time_entries['time_entries']:
+            if entry['spent_date'] in days:
+                self.days[entry['spent_date']] += 1
+
+        for _, count in self.days.items():
+            if count == 0:
+                raise IncompleteWeekError
+
+        return True
+
+    def _fetch_week(self):
+        r = requests.get(
+            'https://api.harvestapp.com/api/v2/time_entries',
+            headers={
+                'Harvest-Account-ID': self.account_id,
+                'Authorization': 'Bearer {}'.format(self.api_token),
+                'User-Agent': 'harvester-submit-week-for-approval (TODO email address or link to app)',
+                'Content-Type': 'application/json',
+            },
+            params={
+                'from': self.monday.strftime('%F'),
+                'to': self.friday.strftime('%F'),
+            })
+
+        return r.json()
+
+    @property
+    def monday(self):
+        if not self._monday:
+            self._monday = self.friday - timedelta(days=4)
+
+        return self._monday
+
+
+class IncompleteWeekError(RuntimeError):
+    pass
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description='Submit the most recent Harvest timesheet for approval.')
@@ -106,6 +164,19 @@ if __name__ == "__main__":
         help='Harvest subdomain (acme in acme.harvestapp.com)')
 
     args = parser.parse_args()
+
+    # Don't submit unless there is at least 1 time sheet logged for each day
+    # that week
+    try:
+        WeekIsComplete(
+            account_id='',
+            api_token='',
+            friday=most_recent_friday()
+        ).check()
+    except IncompleteWeekError:
+        print('Week was incomplete')
+
+        sys.exit(1)
 
     options = Options()
     options.add_argument('-headless')
