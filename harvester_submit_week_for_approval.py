@@ -51,9 +51,11 @@ def submit_week_for_approval(driver, wait, subdomain):
     wait.until(expected.text_to_be_present_in_element(
         (By.CLASS_NAME, 'timesheet-header'),
         str(friday.year)))
-    wait.until(expected.text_to_be_present_in_element(
-        (By.CSS_SELECTOR, '.day .js-day'),
-        friday.strftime('%d %b')))
+    wait.until(expected.visibility_of_element_located(
+        (
+            By.XPATH,
+            '//a[@aria-label="{}"]'.format(friday.strftime('%A, %d %B'))
+        )))
 
     # Click "Submit Week for Approval" button
     driver.find_element_by_css_selector(
