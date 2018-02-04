@@ -11,12 +11,8 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support import expected_conditions as expected
 from selenium.webdriver.support.wait import WebDriverWait
 
-email = ''
-password = ''
-subdomain = ''
 
-
-def login(driver, wait):
+def login(driver, wait, email, password):
     driver.get('https://id.getharvest.com/harvest/sign_in')
 
     wait.until(
@@ -39,7 +35,7 @@ def most_recent_friday():
     else:
         return now - timedelta(weeks=1) + timedelta(days=friday - now.weekday())
 
-def submit_week_for_approval(driver, wait):
+def submit_week_for_approval(driver, wait, subdomain):
     # friday = most_recent_friday()
     friday = datetime(2018, 1, 15)
 
@@ -114,7 +110,11 @@ if __name__ == "__main__":
 
     wait = WebDriverWait(driver, timeout=10)
 
-    driver = login(driver, wait)
-    driver = submit_week_for_approval(driver, wait)
+    driver = login(
+        driver,
+        wait,
+        args.email,
+        get_password(args.password_command))
+    driver = submit_week_for_approval(driver, wait, args.subdomain)
 
     driver.quit()
