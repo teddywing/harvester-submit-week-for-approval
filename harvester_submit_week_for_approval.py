@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import argparse
 from datetime import datetime, timedelta
 
 from selenium.webdriver import Firefox
@@ -80,6 +81,23 @@ def submit_week_for_approval(driver, wait):
     return driver
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description='Submit the most recent Harvest timesheet for approval.')
+    parser.add_argument(
+        '--email',
+        required=True,
+        help='Harvest email address')
+    parser.add_argument(
+        '--password-command',
+        required=True,
+        help='Shell command to get Harvest password')
+    parser.add_argument(
+        '--subdomain',
+        required=True,
+        help='Harvest subdomain (acme in acme.harvestapp.com)')
+
+    args = parser.parse_args()
+
     options = Options()
     options.add_argument('-headless')
     driver = Firefox(
