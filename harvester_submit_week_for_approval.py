@@ -50,27 +50,32 @@ def submit_week_for_approval(driver, wait):
     driver.get(url)
 
     # Wait for page to load
-    wait.until(expected.text_to_be_present_in_element(
-        (By.ID, 'days-in-week-data-island'),
-        friday.strftime('%F')))
+    print(driver.find_element_by_id('days-in-week-data-island'))
+    print(driver.find_element_by_id('days-in-week-data-island').get_attribute('innerHTML'))
+    return driver
+    # wait.until(expected.text_to_be_present_in_element(
+    #     (By.ID, 'days-in-week-data-island'),
+    #     friday.strftime('%F')))
 
-    # Click "Submit Week for Approval" button
-    driver.find_element_by_css_selector(
-        '.approval-button .submit-link'
-    ).click()
-
-    # Click "Yes, Submit Timesheet" button
-    wait.until(
-        expected.visibility_of_element_located(
-            (
-                By.CSS_SELECTOR,
-                '.approval-confirmation .js-submit-for-approval',
-            )))
-
-    # Wait for success message
-    wait.until(expected.text_to_be_present_in_element(
-        (By.ID, 'status_message'),
-        'Timesheet has been submitted for approval.'))
+    # # Click "Submit Week for Approval" button
+    # driver.find_element_by_css_selector(
+    #     '.approval-button .submit-link'
+    # ).click()
+    #
+    # # Click "Yes, Submit Timesheet" button
+    # wait.until(
+    #     expected.visibility_of_element_located(
+    #         (
+    #             By.CSS_SELECTOR,
+    #             '.approval-confirmation .js-submit-for-approval',
+    #         )))
+    #
+    # # Wait for success message
+    # wait.until(expected.text_to_be_present_in_element(
+    #     (By.ID, 'status_message'),
+    #     'Timesheet has been submitted for approval.'))
+    #
+    # return driver
 
 if __name__ == "__main__":
     options = Options()
