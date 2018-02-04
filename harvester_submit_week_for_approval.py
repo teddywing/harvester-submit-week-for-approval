@@ -142,7 +142,7 @@ class WeekIsComplete(object):
             headers={
                 'Harvest-Account-ID': self.account_id,
                 'Authorization': 'Bearer {}'.format(self.api_token),
-                'User-Agent': 'harvester-submit-week-for-approval (TODO email address or link to app)',
+                'User-Agent': 'harvester-submit-week-for-approval (https://github.com/teddywing/harvester-submit-week-for-approval)',
                 'Content-Type': 'application/json',
             },
             params={
