@@ -64,6 +64,8 @@ def submit_week_for_approval(driver, wait, subdomain):
 
     # Don't submit if the time sheet has already been submitted
     if approval_button.text == 'Resubmit Week for Approval':
+        print('Week was already submitted', file=sys.stderr)
+
         return driver
 
     # Click "Submit Week for Approval" button
