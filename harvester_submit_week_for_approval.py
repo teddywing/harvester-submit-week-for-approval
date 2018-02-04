@@ -192,6 +192,7 @@ if __name__ == "__main__":
     options.add_argument('-headless')
     driver = Firefox(
         executable_path='./geckodriver',
+        log_path='/tmp/harvester-submit-week-for-approval-geckodriver.log',
         firefox_binary='/Applications/FirefoxDeveloperEdition.app/Contents/MacOS/firefox-bin',
         firefox_options=options)
 
