@@ -81,7 +81,7 @@ def submit_week_for_approval(driver, wait):
 
 if __name__ == "__main__":
     options = Options()
-    # options.add_argument('-headless')
+    options.add_argument('-headless')
     driver = Firefox(
         executable_path='./geckodriver',
         firefox_binary='/Applications/FirefoxDeveloperEdition.app/Contents/MacOS/firefox-bin',
