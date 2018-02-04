@@ -36,8 +36,7 @@ def most_recent_friday():
         return now - timedelta(weeks=1) + timedelta(days=friday - now.weekday())
 
 def submit_week_for_approval(driver, wait, subdomain):
-    # friday = most_recent_friday()
-    friday = datetime(2018, 1, 15)
+    friday = most_recent_friday()
 
     url = 'https://{subdomain}.harvestapp.com/time/week/{year}/{month}/{day}/'.format(
         subdomain=subdomain,
