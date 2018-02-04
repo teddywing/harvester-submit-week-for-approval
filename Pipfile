@@ -8,6 +8,7 @@ name = "pypi"
 [packages]
 
 selenium = "==3.8.1"
+requests = "==2.18.4"
 
 
 [dev-packages]
