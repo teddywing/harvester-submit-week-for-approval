@@ -162,6 +162,14 @@ if __name__ == "__main__":
         '--subdomain',
         required=True,
         help='Harvest subdomain (acme in acme.harvestapp.com)')
+    parser.add_argument(
+        '--account-id',
+        required=True,
+        help='Harvest account ID')
+    parser.add_argument(
+        '--api-token',
+        required=True,
+        help='Harvest API token (https://id.getharvest.com/developers)')
 
     args = parser.parse_args()
 
@@ -169,8 +177,8 @@ if __name__ == "__main__":
     # that week
     try:
         WeekIsComplete(
-            account_id='',
-            api_token='',
+            account_id=args.account_id,
+            api_token=args.api_token,
             friday=most_recent_friday()
         ).check()
     except IncompleteWeekError:
