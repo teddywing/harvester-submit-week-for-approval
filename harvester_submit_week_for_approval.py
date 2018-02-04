@@ -182,7 +182,7 @@ if __name__ == "__main__":
             friday=most_recent_friday()
         ).check()
     except IncompleteWeekError:
-        print('Week was incomplete')
+        print('Week was incomplete', file=sys.stderr)
 
         sys.exit(1)
 
