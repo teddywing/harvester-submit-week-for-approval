@@ -21,24 +21,24 @@ Install
 1. Clone the repository
 2. Install dependencies::
 
-        $ pipenv install
+    $ pipenv install
 
 3. (OS X only) Modify the
    ``com.teddywing.harvester-submit-week-for-approval.plist`` file:
 
-    a. Change the executable path to the virtualenv’s ``python3``
-    b. Use the absolute path to ``harvester_submit_week_for_approval.py``
-    c. Fill in your Harvest account details. A developer token can be obtained
-       at https://id.getharvest.com/developers.
-    d. Put the plist in ``~/Library/LaunchAgents/``
-    e. Load the plist with::
+   a. Change the executable path to the virtualenv’s ``python3``
+   b. Use the absolute path to ``harvester_submit_week_for_approval.py``
+   c. Fill in your Harvest account details. A developer token can be obtained
+      at https://id.getharvest.com/developers.
+   d. Put the plist in ``~/Library/LaunchAgents/``
+   e. Load the plist with::
 
-            launchctl load /path/to/com.teddywing.harvester-submit-week-for-approval.plist
+       launchctl load /path/to/com.teddywing.harvester-submit-week-for-approval.plist
 
 4. Download `geckodriver`_
 
-    a. Replace the ``geckodriver`` path on `this line`_ with the absolute path
-       to the executable on your machine.
+   a. Replace the ``geckodriver`` path on `this line`_ with the absolute path
+      to the executable on your machine.
 
 
 License
