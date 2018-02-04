@@ -2,6 +2,7 @@
 
 import argparse
 from datetime import datetime, timedelta
+import subprocess
 
 from selenium.webdriver import Firefox
 from selenium.webdriver.common.by import By
@@ -79,6 +80,12 @@ def submit_week_for_approval(driver, wait):
         'Timesheet has been submitted for approval.'))
 
     return driver
+
+def get_password(command):
+    result = subprocess.run(['sh', '-c', command], stdout=subprocess.PIPE)
+
+    return str(result.stdout, 'utf-8').rstrip()
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
